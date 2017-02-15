@@ -1,0 +1,51 @@
+<html>
+<head>
+    <script> /* include jQuery here */ </script>
+</head>
+
+<body>
+
+<div id="parallax-area">
+</div>
+
+<style>
+    #parallax-area {
+        width: 500px;
+        height: 500px;
+        background: url('images/parallax.jpg') -400px -400px/2000px no-repeat;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    var area = $("#parallax-area");
+    var posX;
+    var posY;
+
+    if (area.length > 0) {
+				area.on('mousemove', function(e) {
+					if (posX === undefined ) {
+						posX = e.clientX;
+						posY = e.clientY;
+					} else {
+						var dx = e.clientX - posX;
+						var dy = e.clientY - posY;
+						posX = e.clientX;
+						posY = e.clientY;
+
+						var bgX = parseFloat(area.css('background-position-x'));
+						var bgY = parseFloat(area.css('background-position-y'));
+
+						area.css('background-position-x', (bgX + dx/15) + 'px');
+						area.css('background-position-y', (bgY + dy/15) + 'px');
+					}
+				});
+
+				area.on('mouseleave', function() {
+					posX = posY = undefined;
+				});
+    }
+</script>
+
+</body>
+</html>
